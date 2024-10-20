@@ -5,6 +5,7 @@ import com.example.demo.Editora;
 import com.example.demo.Livro;
 import com.example.demo.dtos.EditoraDTO;
 import com.example.repositories.EditoraRepository;
+import com.example.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +27,11 @@ public class EditoraService {
 
     public Editora findbyId(Integer id){
         Optional<Editora> obj = editoraRepo.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Editora não encontrada! Id: "+id));
     }
 
     public Editora findByCnpj(String cnpj){
         Optional<Editora> obj = editoraRepo.findByCnpj(cnpj);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Editora não encontrada! Cnpj: "+cnpj));
     }
 }

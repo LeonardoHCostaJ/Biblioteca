@@ -3,6 +3,7 @@ package com.example.services;
 import com.example.demo.Autor;
 import com.example.demo.dtos.AutorDTO;
 import com.example.repositories.AutorRepository;
+import com.example.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,6 @@ public class AutorService {
 
     public Autor findbyId(Integer id){
         Optional<Autor> obj = autorRepo.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Autor não encontrado! Id: "+id));
     }
 }
